@@ -1,0 +1,80 @@
+-- ComputerCraft Scripts (C) 2015 Peter "SaberUK" Powell
+
+-- Tries to move the turtle in the specified direction by
+-- [count] blocks. If the movement fails then execution is
+-- terminated.
+function forceMove(count, functor)
+	for _ = 1, count do
+		forceRefuel(1)
+		if not functor() then
+			error("The turtle is unable to move!")
+		end
+	end
+end
+
+-- Tries to refuel the turtle from the inventory. If no fuel
+-- is available then execution is terminated.
+function forceRefuel(count)
+	if not isFuelEmpty() then
+		return
+	end
+	for slot = 1, 16 do
+		turtle.select(slot)
+		if turtle.refuel(count) then
+			return
+		end
+	end
+	error("The turtle has run out of fuel!")
+end
+
+function isFuelEmpty()
+	local currentLevel = turtle.getFuelLevel()
+	return currentLevel ~= "unlimited" and currentLevel < 1
+end
+
+-- Rotates the turtle so that it is facing in the opposite
+-- direction.
+function turnAround()
+	turtle.turnRight()
+	turtle.turnRight()
+end
+
+-- Tries to move the turtle in the specified direction by
+-- [count] blocks. If the movement fails then it waits for
+-- an increasingly exponential amount of time and tries
+-- again.
+function waitMove(count, functor)
+	for _ = 1, count do
+		waitTime = 1
+		while true do
+			waitRefuel(1)
+			if functor() then
+				break
+			end
+			print("Unable to move; retrying in " .. waitTime .. " seconds.")
+			os.sleep(waitTime)
+			waitTime = waitTime * 2
+		end
+	end
+end
+
+-- Tries to refuel the turtle from the inventory. If no fuel
+-- is available it waits for an increasingly exponential
+-- amount of time and tries again.
+function waitRefuel(count)
+	if not isFuelEmpty() then
+		return
+	end
+	waitTime = 1
+	while true do
+		for slot = 1, 16 do
+			turtle.select(slot)
+			if turtle.refuel(count) then
+				return
+			end
+		end
+		print("Unable to refuel; retrying in " .. waitTime .. " seconds.")
+		os.sleep(waitTime)
+		waitTime = waitTime * 2
+	end
+end
