@@ -1,0 +1,23 @@
+-- ComputerCraft Scripts (C) 2015 Peter "SaberUK" Powell
+
+local ARGUMENTS = { ... }
+
+if next(ARGUMENTS) == nil then
+	print("Usage: " .. shell.getRunningProgram() .. " <SLOT>...")
+	return
+end
+
+for index = 1, #ARGUMENTS do
+	local slot = tonumber(ARGUMENTS[index])
+
+	if slot == nil or slot < 1 or slot > 16 then
+		print("Warning: " .. ARGUMENTS[index] .. " is not a valid slot!")
+	else
+		local item = turtle.getItemDetail(slot)
+		if item then
+			print("#" .. slot .. ": " .. item.count .. " " .. item.name .. " (" .. item.damage .. ")")
+		else
+			print("#" .. slot .. ": empty")
+		end
+	end
+end
