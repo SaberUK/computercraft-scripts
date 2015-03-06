@@ -83,6 +83,6 @@ while true do
 		chopDownTree()
 		clearInventory()
 	else
-		error("Unexpected " + block.name + " in the planting area!")
+		error("Unexpected " .. block.name .. " in the planting area!")
 	end
 end
