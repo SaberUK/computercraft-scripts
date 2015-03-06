@@ -40,11 +40,9 @@ function clearInventory()
 	for slot = 1, 16 do
 		local info = turtle.getItemDetail(slot)
 		if info then
-			if info.name == BONEMEAL_NAME and info.damage == BONEMEAL_VARIANT then
-				-- Keep Bone Meal
-			elseif info.name == SAPLING_NAME and info.damage == SAPLING_VARIANT then
-				-- Keep Saplings
-			else
+			local isBoneMeal = info.name == BONEMEAL_NAME and info.damage == BONEMEAL_VARIANT
+			local isSapling = info.name == SAPLING_NAME and info.damage == SAPLING_VARIANT
+			if not isBoneMeal and not isSapling then
 				turtle.select(slot)
 				turtle.dropDown()
 			end
