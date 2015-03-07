@@ -83,13 +83,22 @@ end
 -- and optionally a damage value.
 function searchInventory(name, damage)
 	for slot = 16, 1, -1 do
-		local info = turtle.getItemDetail(slot)
-		if info and info.name == name then
-			if not damage or damage == info.damage then
-				return slot
-			end
+		if searchInventorySlot(slot, name, damage) then
+			return slot
 		end
 	end
+end
+
+-- Searches the specified slot of the turtle's inventory
+-- for an item by block name and optionally a damage value.
+function searchInventorySlot(slot, name, damage)
+	local info = turtle.getItemDetail(slot)
+	if info and info.name == name then
+		if not damage or damage == info.damage then
+			return true
+		end
+	end
+	return false
 end
 
 -- Searches the specified side of a turtle for an item by
