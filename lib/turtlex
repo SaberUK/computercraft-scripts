@@ -78,3 +78,16 @@ function waitRefuel(count)
 		waitTime = waitTime * 2
 	end
 end
+
+-- Searches the turtle's inventory for an item by block name
+-- and optionally a damage value.
+function searchInventory(name, damage)
+	for slot = 16, 1, -1 do
+		local info = turtle.getItemDetail(slot)
+		if info and info.name == name then
+			if not damage or damage == info.damage then
+				return slot
+			end
+		end
+	end
+end
