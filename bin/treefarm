@@ -23,11 +23,7 @@ end
 
 function chopDownTree()
 	moveCounter = 0
-	while true do
-		local success, block = turtle.inspect()
-		if not success or block.name ~= WOOD_NAME or block.metadata ~= WOOD_VARIANT then
-			break
-		end
+	while turtlex.searchWorld(WOOD_NAME, WOOD_VARIANT, turtle.inspect) do
 		turtle.dig()
 		turtle.digUp()
 		turtlex.waitMove(1, turtle.up)
@@ -38,14 +34,11 @@ end
 
 function clearInventory()
 	for slot = 1, 16 do
-		local info = turtle.getItemDetail(slot)
-		if info then
-			local isBoneMeal = info.name == BONEMEAL_NAME and info.damage == BONEMEAL_VARIANT
-			local isSapling = info.name == SAPLING_NAME and info.damage == SAPLING_VARIANT
-			if not isBoneMeal and not isSapling then
-				turtle.select(slot)
-				turtle.dropDown()
-			end
+		local isBoneMeal = turtlex.searchInventorySlot(slot, BONEMEAL_NAME, BONEMEAL_VARIANT)
+		local isSapling = turtlex.searchInventorySlot(slot, SAPLING_NAME, SAPLING_VARIANT)
+		if not isBoneMeal and not isSapling then
+			turtle.select(slot)
+			turtle.dropDown()
 		end
 	end
 end
@@ -61,15 +54,14 @@ function plantSapling()
 end
 
 while true do
-	local success, block = turtle.inspect()
-	if not success then
+	if turtlex.searchWorld(nil, nil, turtle.inspect) then
 		plantSapling()
-	elseif block.name == SAPLING_NAME and block.metadata == SAPLING_VARIANT then
+	elseif turtlex.searchWorld(SAPLING_NAME, SAPLING_VARIANT, turtle.inspect) then
 		boneMealSapling()
-	elseif block.name == WOOD_NAME and block.metadata == WOOD_VARIANT then
+	elseif turtlex.searchWorld(WOOD_NAME, WOOD_VARIANT, turtle.inspect) then
 		chopDownTree()
 		clearInventory()
 	else
-		error("Unexpected " .. block.name .. " in the planting area!")
+		error("Unexpected block in the planting area!")
 	end
 end
