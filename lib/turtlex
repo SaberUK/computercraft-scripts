@@ -91,3 +91,17 @@ function searchInventory(name, damage)
 		end
 	end
 end
+
+-- Searches the specified side of a turtle for an item by
+-- block name and optionally a metadata value.
+function searchWorld(name, metadata, functor)
+	local success, info = functor()
+	if not success and not name then
+		return true
+	elseif info.name == name then
+		if not metadata or metadata == info.metadata then
+			return true
+		end
+	end
+	return false
+end
