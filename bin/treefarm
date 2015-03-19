@@ -11,7 +11,7 @@ local WOOD_VARIANT = 0
 
 os.loadAPI("lib/turtlex")
 
-function boneMealSapling()
+local function boneMealSapling()
 	local slot = turtlex.searchInventory(BONEMEAL_NAME, BONEMEAL_VARIANT)
 	if slot then
 		turtle.select(slot)
@@ -21,7 +21,7 @@ function boneMealSapling()
 	end
 end
 
-function chopDownTree()
+local function chopDownTree()
 	moveCounter = 0
 	while turtlex.searchWorld(WOOD_NAME, WOOD_VARIANT, turtle.inspect) do
 		turtle.dig()
@@ -32,7 +32,7 @@ function chopDownTree()
 	turtlex.waitMove(moveCounter, turtle.down)
 end
 
-function clearInventory()
+local function clearInventory()
 	for slot = 1, 16 do
 		local isBoneMeal = turtlex.searchInventorySlot(slot, BONEMEAL_NAME, BONEMEAL_VARIANT)
 		local isSapling = turtlex.searchInventorySlot(slot, SAPLING_NAME, SAPLING_VARIANT)
@@ -43,7 +43,7 @@ function clearInventory()
 	end
 end
 
-function plantSapling()
+local function plantSapling()
 	local slot = turtlex.searchInventory(SAPLING_NAME, SAPLING_VARIANT)
 	if slot then
 		turtle.select(slot)
