@@ -45,7 +45,7 @@ end
 -- again.
 function waitMove(count, functor)
 	for _ = 1, count do
-		waitTime = 1
+		local waitTime = 1
 		while true do
 			waitRefuel(1)
 			if functor() then
@@ -65,7 +65,7 @@ function waitRefuel(count)
 	if not isFuelEmpty() then
 		return
 	end
-	waitTime = 1
+	local waitTime = 1
 	while true do
 		for slot = 16, 1, -1 do
 			turtle.select(slot)
