@@ -18,7 +18,7 @@ function forceRefuel(count)
 	if not isFuelEmpty() then
 		return
 	end
-	for slot = 1, 16 do
+	for slot = 16, 1, -1 do
 		turtle.select(slot)
 		if turtle.refuel(count) then
 			return
@@ -67,7 +67,7 @@ function waitRefuel(count)
 	end
 	waitTime = 1
 	while true do
-		for slot = 1, 16 do
+		for slot = 16, 1, -1 do
 			turtle.select(slot)
 			if turtle.refuel(count) then
 				return
