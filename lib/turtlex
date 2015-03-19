@@ -18,12 +18,15 @@ function forceRefuel(count)
 	if not isFuelEmpty() then
 		return
 	end
+	local originalSlot = turtle.getSelectedSlot()
 	for slot = 16, 1, -1 do
 		turtle.select(slot)
 		if turtle.refuel(count) then
+			turtle.select(originalSlot)
 			return
 		end
 	end
+	turtle.select(originalSlot)
 	error("The turtle has run out of fuel!")
 end
 
@@ -65,11 +68,13 @@ function waitRefuel(count)
 	if not isFuelEmpty() then
 		return
 	end
+	local originalSlot = turtle.getSelectedSlot()
 	local waitTime = 1
 	while true do
 		for slot = 16, 1, -1 do
 			turtle.select(slot)
 			if turtle.refuel(count) then
+				turtle.select(originalSlot)
 				return
 			end
 		end
@@ -77,6 +82,7 @@ function waitRefuel(count)
 		os.sleep(waitTime)
 		waitTime = waitTime * 2
 	end
+	turtle.select(originalSlot)
 end
 
 -- Searches the turtle's inventory for an item by block name
