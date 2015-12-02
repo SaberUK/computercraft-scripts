@@ -1,5 +1,6 @@
 -- ComputerCraft Scripts (C) 2015 Peter "SaberUK" Powell
 
+-- Determines whether the turtle has run out of fuel.
 function isFuelEmpty()
 	local currentLevel = turtle.getFuelLevel()
 	return currentLevel ~= "unlimited" and currentLevel < 1
