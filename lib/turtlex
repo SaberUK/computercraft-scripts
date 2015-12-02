@@ -1,35 +1,5 @@
 -- ComputerCraft Scripts (C) 2015 Peter "SaberUK" Powell
 
--- Tries to move the turtle in the specified direction by
--- [count] blocks. If the movement fails then execution is
--- terminated.
-function forceMove(count, functor)
-	for _ = 1, count do
-		forceRefuel(1)
-		if not functor() then
-			error("The turtle is unable to move!")
-		end
-	end
-end
-
--- Tries to refuel the turtle from the inventory. If no fuel
--- is available then execution is terminated.
-function forceRefuel(count)
-	if not isFuelEmpty() then
-		return
-	end
-	local originalSlot = turtle.getSelectedSlot()
-	for slot = 16, 1, -1 do
-		turtle.select(slot)
-		if turtle.refuel(count) then
-			turtle.select(originalSlot)
-			return
-		end
-	end
-	turtle.select(originalSlot)
-	error("The turtle has run out of fuel!")
-end
-
 function isFuelEmpty()
 	local currentLevel = turtle.getFuelLevel()
 	return currentLevel ~= "unlimited" and currentLevel < 1
