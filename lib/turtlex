@@ -1,5 +1,9 @@
 -- ComputerCraft Scripts (C) 2015 Peter "SaberUK" Powell
 
+if not turtle then
+	error("The turtlex API can only be used on a turtle!")
+end
+
 -- Determines whether the turtle has run out of fuel.
 function isFuelEmpty()
 	local currentLevel = turtle.getFuelLevel()
