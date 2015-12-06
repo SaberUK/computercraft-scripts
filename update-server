@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+
+if [ -z "${CC_SERVER}" ]; then
+	export CC_SERVER='minecraft@saberuk.com'
+fi
+if [ -z "${CC_DIRECTORY}" ]; then
+	export CC_DIRECTORY='/home/minecraft/saberpack/world/computer'
+fi
+
+echo 'Checking which computers need to have their scripts updated...'
+RESULTS=`ssh ${CC_SERVER} find ${CC_DIRECTORY} -maxdepth 2 -name .ccs`
+
+cd source
+for RESULT in ${RESULTS}
+do
+	ID=${RESULT:(-6):1}
+	echo "Updating computer #${ID}..."
+	scp -r . ${CC_SERVER}:${CC_DIRECTORY}/${ID}
+done
+
+echo 'Update complete!'
