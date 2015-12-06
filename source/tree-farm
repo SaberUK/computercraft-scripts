@@ -9,7 +9,9 @@ local SAPLING_VARIANT = 0
 local WOOD_NAME    = "minecraft:log"
 local WOOD_VARIANT = 0
 
-os.loadAPI("lib/turtlex")
+if not os.loadAPI("lib/turtlex") then
+	error("The turtlex API can not be loaded!")
+end
 
 local function boneMealSapling()
 	local slot = turtlex.searchInventory(BONEMEAL_NAME, BONEMEAL_VARIANT)
