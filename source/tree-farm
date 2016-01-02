@@ -9,6 +9,10 @@ local SAPLING_VARIANT = 0
 local WOOD_NAME    = "minecraft:log"
 local WOOD_VARIANT = 0
 
+if not os.loadAPI("lib/panopticon") then
+	error("The panopticon API can not be loaded!")
+end
+
 if not os.loadAPI("lib/turtlex") then
 	error("The turtlex API can not be loaded!")
 end
@@ -16,14 +20,17 @@ end
 local function boneMealSapling()
 	local slot = turtlex.searchInventory(BONEMEAL_NAME, BONEMEAL_VARIANT)
 	if slot then
+		panopticon.setStatus("Using bone meal", false)
 		turtle.select(slot)
 		turtle.place()
 	else
+		panopticon.setStatus("Sleeping", false)
 		os.sleep(5)
 	end
 end
 
 local function chopDownTree()
+	panopticon.setStatus("Chopping down tree", false)
 	moveCounter = 0
 	while turtlex.searchWorld(WOOD_NAME, WOOD_VARIANT, turtle.inspect) do
 		turtle.dig()
@@ -35,6 +42,7 @@ local function chopDownTree()
 end
 
 local function clearInventory()
+	panopticon.setStatus("Clearing inventory", false)
 	for slot = 1, 16 do
 		local isBoneMeal = turtlex.searchInventorySlot(slot, BONEMEAL_NAME, BONEMEAL_VARIANT)
 		local isSapling = turtlex.searchInventorySlot(slot, SAPLING_NAME, SAPLING_VARIANT)
@@ -51,6 +59,7 @@ local function plantSapling()
 		turtle.select(slot)
 		turtle.place()
 	else
+		panopticon.setStatus("Run out of saplings", true)
 		error("The turtle has run out of saplings!")
 	end
 end
@@ -64,6 +73,7 @@ while true do
 		chopDownTree()
 		clearInventory()
 	else
+		panopticon.setStatus("Unexpected block in the planting area", true)
 		error("Unexpected block in the planting area!")
 	end
 end

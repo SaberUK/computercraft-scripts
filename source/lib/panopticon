@@ -1,0 +1,27 @@
+-- ComputerCraft Scripts (C) 2015 Peter "SaberUK" Powell
+
+local STATUS_FILE = "/.status"
+
+-- Sets the status of the current computer.
+function setStatus(status, important)
+	local fileHandle = fs.open(STATUS_FILE, "w")
+	if not fileHandle then
+		error("Unable to open the status file!")
+	end
+	local format = {}
+	format["status"] = status
+	format["important"] = important
+	fileHandle.writeLine(textutils.serialize(format))
+	fileHandle.close()
+end
+
+-- Gets the status of the current computer.
+function getStatus()
+	local fileHandle = fs.open(STATUS_FILE, "r")
+	if not fileHandle then
+		error("Unable to open the status file!")
+	end
+	local status = textutils.unserialize(fileHandle.readLine())
+	fileHandle.close()
+	return status
+end
