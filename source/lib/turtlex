@@ -1,4 +1,4 @@
--- ComputerCraft Scripts (C) 2015 Peter "SaberUK" Powell
+-- ComputerCraft Scripts (C) 2015-2016 Peter "SaberUK" Powell <petpow@saberuk.com>
 
 if not turtle then
 	error("The turtlex API can only be used on a turtle!")

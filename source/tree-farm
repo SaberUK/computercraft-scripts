@@ -1,4 +1,4 @@
--- ComputerCraft Scripts (C) 2015 Peter "SaberUK" Powell
+-- ComputerCraft Scripts (C) 2015-2016 Peter "SaberUK" Powell <petpow@saberuk.com>
 
 local BONEMEAL_NAME    = "minecraft:dye"
 local BONEMEAL_VARIANT = 15

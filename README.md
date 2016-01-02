@@ -10,7 +10,7 @@ Clone the repository to your server and then copy the scripts into the directory
 
 ## License
 
-Copyright (C) 2015 Peter "SaberUK" Powell <petpow@saberuk.com>
+Copyright (C) 2015-2016 Peter "SaberUK" Powell <petpow@saberuk.com>
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee
 is hereby granted, provided that the above copyright notice and this permission notice appear in all
